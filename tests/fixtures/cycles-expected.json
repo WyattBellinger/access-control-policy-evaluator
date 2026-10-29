@@ -1,0 +1,19 @@
+{
+  "memberships": [
+    {
+      "user_id": "u",
+      "group_ids": []
+    }
+  ],
+  "decisions": [
+    {
+      "user_id": "u",
+      "resource_id": "r",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    }
+  ]
+}

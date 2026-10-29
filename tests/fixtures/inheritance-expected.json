@@ -1,0 +1,114 @@
+{
+  "memberships": [
+    {
+      "user_id": "u",
+      "group_ids": []
+    }
+  ],
+  "decisions": [
+    {
+      "user_id": "u",
+      "resource_id": "barrier",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "barrier",
+      "action": "write",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "barrier-write"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "child",
+      "action": "read",
+      "allowed": false,
+      "reason": "explicit-deny",
+      "allow_rule_ids": [
+        "root-read"
+      ],
+      "deny_rule_ids": [
+        "child-local-deny"
+      ]
+    },
+    {
+      "user_id": "u",
+      "resource_id": "child",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "leaf",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "root-read"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "leaf",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "root",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "root-read"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "root",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "vault",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "vault-local-read"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "u",
+      "resource_id": "vault",
+      "action": "write",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "barrier-write"
+      ],
+      "deny_rule_ids": []
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "users": [
+    "u"
+  ],
+  "actions": [
+    "read"
+  ],
+  "groups": [
+    {
+      "group_id": "A",
+      "member_users": [],
+      "member_groups": [
+        "B"
+      ]
+    },
+    {
+      "group_id": "B",
+      "member_users": [],
+      "member_groups": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "resource_id": "r",
+      "parent_id": null,
+      "inherit": true
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "empty-cycle-allow",
+      "principal_type": "group",
+      "principal_id": "A",
+      "resource_id": "r",
+      "actions": [
+        "read"
+      ],
+      "effect": "allow",
+      "propagate": true
+    }
+  ]
+}

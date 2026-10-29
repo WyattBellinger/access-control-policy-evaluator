@@ -1,0 +1,174 @@
+{
+  "users": [
+    "eve",
+    "bob",
+    "alice"
+  ],
+  "actions": [
+    "write",
+    "read"
+  ],
+  "groups": [
+    {
+      "group_id": "staff",
+      "member_users": [
+        "alice"
+      ],
+      "member_groups": [
+        "engineers"
+      ]
+    },
+    {
+      "group_id": "engineers",
+      "member_users": [
+        "bob"
+      ],
+      "member_groups": [
+        "maintainers"
+      ]
+    },
+    {
+      "group_id": "maintainers",
+      "member_users": [],
+      "member_groups": [
+        "engineers"
+      ]
+    },
+    {
+      "group_id": "auditors",
+      "member_users": [
+        "eve"
+      ],
+      "member_groups": []
+    }
+  ],
+  "resources": [
+    {
+      "resource_id": "root",
+      "parent_id": null,
+      "inherit": true
+    },
+    {
+      "resource_id": "docs",
+      "parent_id": "root",
+      "inherit": true
+    },
+    {
+      "resource_id": "secret",
+      "parent_id": "docs",
+      "inherit": false
+    },
+    {
+      "resource_id": "archive",
+      "parent_id": "secret",
+      "inherit": true
+    },
+    {
+      "resource_id": "public",
+      "parent_id": null,
+      "inherit": true
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "base",
+      "principal_type": "group",
+      "principal_id": "staff",
+      "resource_id": "root",
+      "actions": [
+        "read",
+        "write"
+      ],
+      "effect": "allow",
+      "propagate": true
+    },
+    {
+      "rule_id": "blocked-writes",
+      "principal_type": "group",
+      "principal_id": "engineers",
+      "resource_id": "root",
+      "actions": [
+        "write"
+      ],
+      "effect": "deny",
+      "propagate": true
+    },
+    {
+      "rule_id": "local-override",
+      "principal_type": "user",
+      "principal_id": "bob",
+      "resource_id": "docs",
+      "actions": [
+        "write"
+      ],
+      "effect": "allow",
+      "propagate": false
+    },
+    {
+      "rule_id": "docs-read",
+      "principal_type": "group",
+      "principal_id": "staff",
+      "resource_id": "docs",
+      "actions": [
+        "read"
+      ],
+      "effect": "allow",
+      "propagate": false
+    },
+    {
+      "rule_id": "alice-local-deny",
+      "principal_type": "user",
+      "principal_id": "alice",
+      "resource_id": "docs",
+      "actions": [
+        "read"
+      ],
+      "effect": "deny",
+      "propagate": false
+    },
+    {
+      "rule_id": "audit-read",
+      "principal_type": "group",
+      "principal_id": "auditors",
+      "resource_id": "secret",
+      "actions": [
+        "read"
+      ],
+      "effect": "allow",
+      "propagate": true
+    },
+    {
+      "rule_id": "alice-secret",
+      "principal_type": "user",
+      "principal_id": "alice",
+      "resource_id": "secret",
+      "actions": [
+        "write"
+      ],
+      "effect": "allow",
+      "propagate": true
+    },
+    {
+      "rule_id": "archive-deny",
+      "principal_type": "user",
+      "principal_id": "eve",
+      "resource_id": "archive",
+      "actions": [
+        "read"
+      ],
+      "effect": "deny",
+      "propagate": false
+    },
+    {
+      "rule_id": "public-guest",
+      "principal_type": "user",
+      "principal_id": "eve",
+      "resource_id": "public",
+      "actions": [
+        "read"
+      ],
+      "effect": "allow",
+      "propagate": false
+    }
+  ]
+}

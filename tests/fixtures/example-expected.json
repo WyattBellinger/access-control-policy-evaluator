@@ -1,0 +1,333 @@
+{
+  "memberships": [
+    {
+      "user_id": "alice",
+      "group_ids": [
+        "staff"
+      ]
+    },
+    {
+      "user_id": "bob",
+      "group_ids": [
+        "engineers",
+        "maintainers",
+        "staff"
+      ]
+    },
+    {
+      "user_id": "eve",
+      "group_ids": [
+        "auditors"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "user_id": "alice",
+      "resource_id": "archive",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "archive",
+      "action": "write",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "alice-secret"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "docs",
+      "action": "read",
+      "allowed": false,
+      "reason": "explicit-deny",
+      "allow_rule_ids": [
+        "base",
+        "docs-read"
+      ],
+      "deny_rule_ids": [
+        "alice-local-deny"
+      ]
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "docs",
+      "action": "write",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "base"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "public",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "public",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "root",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "base"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "root",
+      "action": "write",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "base"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "secret",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "alice",
+      "resource_id": "secret",
+      "action": "write",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "alice-secret"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "archive",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "archive",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "docs",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "base",
+        "docs-read"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "docs",
+      "action": "write",
+      "allowed": false,
+      "reason": "explicit-deny",
+      "allow_rule_ids": [
+        "base",
+        "local-override"
+      ],
+      "deny_rule_ids": [
+        "blocked-writes"
+      ]
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "public",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "public",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "root",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "base"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "root",
+      "action": "write",
+      "allowed": false,
+      "reason": "explicit-deny",
+      "allow_rule_ids": [
+        "base"
+      ],
+      "deny_rule_ids": [
+        "blocked-writes"
+      ]
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "secret",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "bob",
+      "resource_id": "secret",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "archive",
+      "action": "read",
+      "allowed": false,
+      "reason": "explicit-deny",
+      "allow_rule_ids": [
+        "audit-read"
+      ],
+      "deny_rule_ids": [
+        "archive-deny"
+      ]
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "archive",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "docs",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "docs",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "public",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "public-guest"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "public",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "root",
+      "action": "read",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "root",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "secret",
+      "action": "read",
+      "allowed": true,
+      "reason": "allow",
+      "allow_rule_ids": [
+        "audit-read"
+      ],
+      "deny_rule_ids": []
+    },
+    {
+      "user_id": "eve",
+      "resource_id": "secret",
+      "action": "write",
+      "allowed": false,
+      "reason": "default-deny",
+      "allow_rule_ids": [],
+      "deny_rule_ids": []
+    }
+  ]
+}

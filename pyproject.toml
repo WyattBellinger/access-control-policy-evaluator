@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nanoagent-access-control-policy-evaluator"
+version = "0.1.0"
+description = "Verifiable effective permissions with nested groups, resource inheritance and deny overrides"
+requires-python = ">=3.12"
+dependencies = ["mcp>=1.27,<2", "slimconfig", "omegaconf>=2.3,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.uv.sources]
+slimconfig = { git = "https://github.com/zeyuyang8/slimconfig", branch = "master" }
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

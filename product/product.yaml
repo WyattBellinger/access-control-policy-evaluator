@@ -1,0 +1,12 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: "Explain every access decision, including the rules behind it"
+summary: "Evaluate a supplied access policy with nested groups, inherited permissions and explicit denials. See every user's effective access to every resource and action, with all matching rule IDs and independent deterministic verification."
+highlights:
+  - "Expands transitive group memberships, including cycles"
+  - "Respects inheritance boundaries and deny-overrides conflicts"
+  - "Checks denied entries, overridden allows and complete rule traces"
+  - "Runs offline with no plugin API keys or system permission changes"
+steps:
+  - "Supply users, actions, groups, a resource forest and permission rules"
+  - "Evaluate every user, resource and action under the defined policy semantics"
+  - "Review the complete decision matrix and its verifier verdict"

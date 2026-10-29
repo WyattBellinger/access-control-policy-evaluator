@@ -1,0 +1,83 @@
+{
+  "users": [
+    "u"
+  ],
+  "actions": [
+    "read",
+    "write"
+  ],
+  "groups": [],
+  "resources": [
+    {
+      "resource_id": "root",
+      "parent_id": null,
+      "inherit": false
+    },
+    {
+      "resource_id": "child",
+      "parent_id": "root",
+      "inherit": true
+    },
+    {
+      "resource_id": "leaf",
+      "parent_id": "child",
+      "inherit": true
+    },
+    {
+      "resource_id": "barrier",
+      "parent_id": "child",
+      "inherit": false
+    },
+    {
+      "resource_id": "vault",
+      "parent_id": "barrier",
+      "inherit": true
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "root-read",
+      "principal_type": "user",
+      "principal_id": "u",
+      "resource_id": "root",
+      "actions": [
+        "read"
+      ],
+      "effect": "allow",
+      "propagate": true
+    },
+    {
+      "rule_id": "child-local-deny",
+      "principal_type": "user",
+      "principal_id": "u",
+      "resource_id": "child",
+      "actions": [
+        "read"
+      ],
+      "effect": "deny",
+      "propagate": false
+    },
+    {
+      "rule_id": "barrier-write",
+      "principal_type": "user",
+      "principal_id": "u",
+      "resource_id": "barrier",
+      "actions": [
+        "write"
+      ],
+      "effect": "allow",
+      "propagate": true
+    },
+    {
+      "rule_id": "vault-local-read",
+      "principal_type": "user",
+      "principal_id": "u",
+      "resource_id": "vault",
+      "actions": [
+        "read"
+      ],
+      "effect": "allow",
+      "propagate": false
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+_ > nanoagent.plugin.v0001.ManifestConfig:
+id: access-control-policy-evaluator
+name: Access Control Policy Evaluator
+version: 0.1.0
+status: ready
+spec: nanoagent.plugin/v0001
+
+runtime > nanoagent.plugin.v0001.RuntimeConfig:
+  type: mcp_stdio
+  command: [uv, run, --frozen, python, -m, plugin]
+
+permissions > nanoagent.plugin.v0001.PermissionsConfig:
+  network > nanoagent.plugin.v0001.NetworkConfig:
+    hosts: []
+  filesystem > nanoagent.plugin.v0001.FilesystemConfig:
+    write: []
+
+tools > dict[contract.Tool, nanoagent.plugin.v0001.ToolConfig]:
+  inspect_resource:
+    description: Inspect a declared resource's parent, inheritance flag, immediate children and locally attached rule IDs
+  evaluate_policy:
+    description: Calculate all effective memberships, decisions and matching rule IDs for offline policy regression runs
+
+tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
+  evaluate-access:
+    description: Determine every user's access to every resource and action, with complete matching allow and deny rule IDs
+    runner: agent
+    tools: [inspect_resource]
+    reference: null
+    instructions: |-
+      Evaluate only the supplied fixed policy under these rules. IDs are
+      case-sensitive, copied exactly and sorted lexicographically without
+      normalization. A group contains its member_users and all users in its
+      member_groups, transitively. Group cycles are legal: use the least fixed
+      point seeded by explicit user memberships; cycles alone create no members.
+      A rule matches its named user or every effective member of its named group,
+      for exactly its listed actions. It applies to its own resource regardless
+      of inherit or propagate. If propagate=true it also applies to descendants
+      only while EVERY child on the path has inherit=true. An inherit=false
+      resource blocks all ancestor rules, but its own propagating rules can
+      still flow to inheriting children. Permissions never flow upward or sideways.
+      ANY matching deny overrides ALL matching allows, including a local user
+      allow conflicting with an inherited group deny. No matching rule means
+      denied. There are no implied actions, ownership rights or wildcard expansion.
+      Submit memberships with exactly one row per user, sorted by user_id; each
+      group_ids list contains every effective group once, sorted. Submit decisions
+      with exactly one row for EVERY users x resources x actions triple, sorted by
+      (user_id,resource_id,action), including denied entries. Each row contains ALL
+      matching allow_rule_ids and deny_rule_ids sorted and deduplicated, even
+      overridden allows. reason=explicit-deny and allowed=false if any deny
+      matches; otherwise reason=allow and allowed=true if any allow matches;
+      otherwise reason=default-deny and allowed=false with both rule lists empty.
+      An empty dimension means no decisions; memberships still includes all users.
+      inspect_resource optionally reads local facts from a policy you supply;
+      pass the original policy unchanged. Compute the full result yourself;
+      evaluate_policy is unavailable to this task. Resource parent cycles,
+      duplicate IDs/list entries, undeclared references, empty rule actions,
+      blank IDs and surrounding whitespace are invalid input, not default denials.
+  evaluate-policy:
+    description: Calculate and independently verify the complete effective permission matrix for a fixed policy
+    runner: tool
+    tools: [evaluate_policy]
+    reference: null
+    instructions: Follow the exact group, inheritance, deny-overrides and complete-output rules in README.md; reject invalid policies.
